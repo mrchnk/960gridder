@@ -40,7 +40,7 @@ function Grid() {
 	 * (read on 960 Gridder's website)
 	 */
 	me.settingsDef = {
-		urlBase: 'http://gridder.andreehansson.se/releases/1.3.1/',
+		jQueryUrl: '//code.jquery.com/jquery-1.3.1.pack.js',
 		gColor: '#EEEEEE',
 		gColumns: 12,
 		gOpacity: 0.45,
@@ -73,17 +73,13 @@ function Grid() {
 		}
 	}
 
-	// Load latest jQuery if needed
-	if (typeof(window.jQuery) === "undefined" ||
-		jQuery().jquery.match(/^1\.3/) === null) {
-
-		// Reset the jQuery variable, "removing" current jQuery version
-		window.jQuery = undefined;
-
-		// Inject the newest version of jQuery :-)
+	// Load jQuery if needed
+	if (typeof(window.jQuery) === "undefined") {
+		// Inject jQuery :-)
 		var scriptEl = document.createElement('script');
 		scriptEl.type = "text/javascript";
-		scriptEl.src = me.settings.urlBase + "jquery.js";
+		var p = location.protocol;
+		scriptEl.src = (p === 'file:' ? 'http:' :  p) + me.settings.jQueryUrl;
 		document.body.appendChild(scriptEl);
 	}
 	
