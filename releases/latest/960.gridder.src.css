@@ -121,6 +121,7 @@
 /* GRID */
 
 #g-grid {
+	pointer-events: none;
 	left: 0;
 	position: absolute;
 	z-index: 500;
