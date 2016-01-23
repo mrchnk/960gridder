@@ -45,6 +45,7 @@ function Grid() {
 		gColumns: 12,
 		gOpacity: 0.45,
 		gWidth: 10,
+		gOffset: 0,
 		pColor: '#C0C0C0',
 		pHeight: 15,
 		pOffset: 0,
@@ -146,7 +147,25 @@ function Grid() {
 		if (me.settings.setupEnabled) {
 			
 			// Same as for the CSS, all the HTML used to setup 960 Gridder
-			jQuery('<div id="g-setup"><ul><li class="head">Vertical</li><li><span>Color</span><input id="g-setup-gColor" /></li><li><span>Opacity</span><input id="g-setup-gOpacity" /></li><li><span>Width</span><input id="g-setup-gWidth" /></li><li><span>Columns</span><select id="g-setup-gColumns"></select></li></ul><ul><li class="head">Horizontal</li><li><span>Color</span><input id="g-setup-pColor" /></li><li><span>Opacity</span><input id="g-setup-pOpacity" /></li><li><span>Height</span><input id="g-setup-pHeight" /></li><li><span>Offset</span><input id="g-setup-pOffset" /></li></ul><ul id="g-setup-misc"><li><span>Enable vertical (gutters)</span><input id="g-setup-gEnabled" type="checkbox" /></li><li><span>Enable horizontal (paragraphs)</span><input id="g-setup-pEnabled" type="checkbox" /></li><li><span>Invert vertical</span><input id="g-setup-invert" type="checkbox" /></li><li><span>Center grid</span><input id="g-setup-center" type="checkbox" /></li></ul><div style="clear: left;"></div><div id="g-setup-tab"><a href="javascript:;"><img src="http://gridder.andreehansson.se/releases/1.3.1/logo-sprite.png" alt="" /></a></div></div>').appendTo('body');
+			jQuery('<div id="g-setup"><ul>' + 
+					'<li class="head">Vertical</li>' + 
+					'<li><span>Color</span><input id="g-setup-gColor" /></li>' + 
+					'<li><span>Opacity</span><input id="g-setup-gOpacity" /></li>' + 
+					'<li><span>Width</span><input id="g-setup-gWidth" /></li>' + 
+					'<li><span>Offset</span><input id="g-setup-gOffset" /></li>' + 
+					'<li><span>Columns</span><select id="g-setup-gColumns"></select></li>' + 
+				'</ul><ul>' + 
+					'<li class="head">Horizontal</li>' + 
+					'<li><span>Color</span><input id="g-setup-pColor" /></li>' +
+					'<li><span>Opacity</span><input id="g-setup-pOpacity" /></li>' + 
+					'<li><span>Height</span><input id="g-setup-pHeight" /></li>' + 
+					'<li><span>Offset</span><input id="g-setup-pOffset" /></li>' + 
+				'</ul><ul id="g-setup-misc">' + 
+					'<li><span>Enable vertical (gutters)</span><input id="g-setup-gEnabled" type="checkbox" /></li>' + 
+					'<li><span>Enable horizontal (paragraphs)</span><input id="g-setup-pEnabled" type="checkbox" /></li>' + 
+					'<li><span>Invert vertical</span><input id="g-setup-invert" type="checkbox" /></li>' + 
+					'<li><span>Center grid</span><input id="g-setup-center" type="checkbox" /></li>' + 
+				'</ul><div style="clear: left;"></div><div id="g-setup-tab"><a href="javascript:;"><img src="http://gridder.andreehansson.se/releases/1.3.1/logo-sprite.png" alt="" /></a></div></div>').appendTo('body');
 
 			// Calculate suitable number of columns based on width
 			for (var i = 2; i < 48; i++) {
@@ -364,7 +383,7 @@ function Grid() {
 			else {
 				for (var i = 0; i <= me.settings.gColumns; i++) {
 					me._createEntity('vertical', {
-						left: ((me.settings.size / me.settings.gColumns) * i),
+						left: ((me.settings.size / me.settings.gColumns) * i + (me.settings.gOffset * 1)),
 						width: (me.settings.gWidth * 2),
 						height: me.settings.height,
 						backgroundColor: me.settings.gColor,
@@ -382,9 +401,9 @@ function Grid() {
 			
 			for (i = 0; i <= horColumns; i++) {
 				me._createEntity('horizontal', {
-					top: ((me.settings.height / horColumns) * i) + me.settings.pOffset,
+					top: ((me.settings.height / horColumns) * i) + (me.settings.pOffset * 1),
 					left: '50%',
-					marginLeft: -(me.settings.size / 2),
+					marginLeft: -(me.settings.size / 2) + (me.settings.gOffset * 1),
 					width: (me.settings.size + (me.settings.gWidth * 2)),
 					backgroundColor: me.settings.pColor,
 					opacity: me.settings.pOpacity
